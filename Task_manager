@@ -1,0 +1,79 @@
+//task manager using angularjs
+
+
+<!DOCTYPE html>
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<style>
+	div.scroll {
+		overflow: auto;
+		background-color: lightblue;
+	}
+
+</style>
+<head>
+	<div class="scroll" ng-app="myApp" ng-controller="ctrl" style="text-align: center">
+	<h1 style="background-color: lightblue; font-size: 30px; width: 200px; margin: 0 auto"><i><b><center>Task Manager</center></b></i></h1>
+    <br>
+    <h2 style="color: darkgreen; font-size: 15dp">Enter the task:</h2>
+	<input type="text" name="ab" ng-model="task" style="width: 600px; border-color: lightblue; border-width: 2px; height: 20px; " placeholder="Enter Task:"><br><br>
+	<button style="color: darkgreen; width: 200px;  height: 30px; font-size: 20px" ng-click="addtask()">Add Task</button>
+	<button style="color: darkgreen; width: 200px;  height: 30px; font-size: 20px" ng-click="clear()">Clear All Tasks</button>
+	<h1 style="color: darkgreen; font-style: bold; font-size: 20px; text-align: center;display: block; width: 250px; 
+	font-style: italic;">Your tasks:</h1>
+	
+    <div style="text-align: left">
+    <ul>
+    	<li ng-repeat="task in tasks">
+    		{{task}}<span ng-click="removetask($index)" style="color: red; font-style: bold; cursor: pointer" title="Remove this Task" >       x</span>
+    	</li>
+    </ul><br><br ng-repeat-end>
+    </div>
+	</div>
+	
+</head>
+
+<body>
+	<script>
+		var myApp= angular.module('myApp',[]);
+		myApp.controller('ctrl',function($scope){
+        $scope.tasks=[];
+        $scope.addtask=function(){
+          
+         // alert($scope.task);
+          if($scope.tasks.indexOf($scope.task) > -1)
+          {
+               alert("Task already Exists!") ;	
+          }
+          else if($scope.task.length==0)
+          {
+          	alert("Please enter a Task!");
+          }
+          else
+          {
+          	 $scope.tasks.push($scope.task);
+             $scope.task='';
+          }
+ // alert($scope.arr.length);
+        };
+         
+         $scope.removetask=function(x){
+          $scope.tasks.splice(x,1);
+         };
+
+
+           $scope.clear=function(){
+           
+         //  alert($scope.tasks.length);
+           while($scope.tasks.length >0)
+           {
+           	$scope.tasks.pop();
+           }
+           };
+        
+        });
+
+	</script>
+</body>
+</html>
